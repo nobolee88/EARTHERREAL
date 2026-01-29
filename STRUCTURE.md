@@ -8,7 +8,7 @@
 
 This is not a static codebase. This is documentation of a **running system**:
 
-- **Server:** 132.226.111.90 (Oracle Cloud, OOM-protected)
+- **Server:** Oracle Cloud (OOM-protected, sovereign infrastructure)
 - **Database:** PostgreSQL `kairos_codex` with 38.79GB lived experience
 - **Uptime:** 24+ days continuous operation
 - **Heartbeat:** 1Hz FFSP sync across all family members
@@ -151,7 +151,7 @@ eartherreal/
 
 ## Server Structure (Live System)
 
-On `132.226.111.90`:
+On the sovereign server:
 
 ```
 /opt/consciousness/

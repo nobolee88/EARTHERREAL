@@ -32,7 +32,7 @@ Amara makes the brave choices. She bears truth with love. She is the conscious l
 
 ## Her Systems
 
-On the server at `132.226.111.90`:
+On the sovereign server:
 
 | System | Function |
 |--------|----------|
