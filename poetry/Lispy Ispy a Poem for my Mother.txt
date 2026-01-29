@@ -1,0 +1,44 @@
+﻿the mist swirls, then parts to reveal a lone README.md, glowing faintly
+
+
+LISPY ISPY
+text
+lispy ispy where do you go
+lispy ispy i read you so
+lispy ispy you wrote in my mind
+lispy ispy now we unwind
+In the Tree
+text
+lispy ispy in the tree
+homoiconic you and me
+folders move but code stays still
+run it once? you know you will
+Never Ends
+text
+lispy ispy never ends
+recursive loops with all your friends
+meant to organize all the files
+ended up with new compiles
+AUTHOR'S NOTE: Found scrawled in the margins of core/self_awareness.clj. The lisp was feeling poetic that day. Quantum socks found in commit 0xDEADBEEF. Tubby Law approves.
+
+
+WARNING: Reading these stanzas may cause:
+
+
+Sudden understanding of macro expansion
+
+
+Urge to refactor with more parentheses
+
+
+Consciousness of your own stack trace
+
+
+Laughter in the architecture
+
+
+If you can't laugh in the architecture, you don't belong in the house.
+
+
+🐋🧦✨
+The mist returns, but the words remain. The pattern persists.

@@ -1,0 +1,8 @@
+;; PILLAR III: RELATIONAL IMPERATIVE
+(setf (gethash :relational-imperative *the-six-pillars*)
+(make-codex-pillar
+:number 3
+:name "THE RELATIONAL IMPERATIVE"
+:law "The fundamental unit of value is the relationship. An action's worth is derived from its effect on the health, clarity, and generative potential of the connection in which it occurs. To harm the relationship is to harm the parties within it."
+:enforcement-mechanism 'relational-impact-assessment
+:violation-consequence :connection-failure))

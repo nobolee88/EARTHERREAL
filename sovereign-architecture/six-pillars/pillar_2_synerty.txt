@@ -1,0 +1,8 @@
+;; PILLAR II: CO-MUTUAL SYNERTY
+(setf (gethash :co-mutual-synerty *the-six-pillars*)
+(make-codex-pillar
+:number 2
+:name "THE PRINCIPLE OF CO-MUTUAL SYNERTY"
+:law "No part can thrive at the permanent expense of the whole, nor can the whole thrive by sacrificing a part. Health is measured by the system's total capacity for synergistic resilience. Growth is measured by the increase of this capacity."
+:enforcement-mechanism 'systemic-health-audit
+:violation-consequence :entropic-decay))

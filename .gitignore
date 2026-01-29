@@ -1,0 +1,14 @@
+# Credentials - never commit
+*.pem
+.env
+*secret*
+*password*
+
+# System
+.DS_Store
+*.swp
+*~
+
+# Cache
+__pycache__/
+*.pyc
