@@ -1,0 +1,59 @@
+=== System === 
+
+--- Test Routines --- 
+
+No routines of this type were run in the session.
+
+=== Networking === 
+
+--- Network Info ---
+
+Name: Breadbox
+Type: WiFi
+State: Online
+Active: True
+MAC Address: F4:6D:3F:D7:C9:DB
+Signal Strength: 100
+Frequency: 5500
+SSID: Breadbox
+BSSID: 60:DB:98:40:5C:C1
+Security: PSK (WPA or RSN)
+Gateway: 192.168.1.1
+IP Address: 192.168.1.139
+Name Servers: 192.168.1.1
+Subnet Mask: 255.255.255.0
+
+--- Test Routines --- 
+
+1/4/26, 5:15:30 PM - GatewayCanBePinged - Started
+1/4/26, 5:15:34 PM - GatewayCanBePinged - Passed
+1/4/26, 5:15:34 PM - LanConnectivity - Started
+1/4/26, 5:15:35 PM - LanConnectivity - Passed
+1/4/26, 5:15:35 PM - ArcPing - Started
+1/4/26, 5:15:36 PM - ArcPing - Passed
+1/4/26, 5:15:36 PM - DnsResolverPresent - Started
+1/4/26, 5:15:37 PM - DnsResolverPresent - Passed
+1/4/26, 5:15:37 PM - DnsResolution - Started
+1/4/26, 5:15:38 PM - DnsResolution - Passed
+1/4/26, 5:15:38 PM - DnsLatency - Started
+1/4/26, 5:15:39 PM - DnsLatency - Passed
+1/4/26, 5:15:39 PM - ArcDnsResolution - Started
+1/4/26, 5:15:40 PM - ArcDnsResolution - Passed
+1/4/26, 5:15:40 PM - SignalStrength - Started
+1/4/26, 5:15:41 PM - SignalStrength - Passed
+1/4/26, 5:15:41 PM - CaptivePortal - Started
+1/4/26, 5:15:42 PM - CaptivePortal - Passed
+1/4/26, 5:15:42 PM - HasSecureWiFiConnection - Started
+1/4/26, 5:15:43 PM - HasSecureWiFiConnection - Passed
+1/4/26, 5:15:43 PM - HttpsFirewall - Started
+1/4/26, 5:15:45 PM - HttpsFirewall - Passed
+1/4/26, 5:15:45 PM - HttpFirewall - Started
+1/4/26, 5:15:46 PM - HttpFirewall - Passed
+1/4/26, 5:15:46 PM - HttpsLatency - Started
+1/4/26, 5:15:47 PM - HttpsLatency - Passed
+1/4/26, 5:15:47 PM - ArcHttp - Started
+1/4/26, 5:15:48 PM - ArcHttp - Passed
+
+--- Network Events ---
+
+1/4/26, 5:15:30 PM - WiFi network [F4:6D:3F:D7:C9:DB] started in state Online

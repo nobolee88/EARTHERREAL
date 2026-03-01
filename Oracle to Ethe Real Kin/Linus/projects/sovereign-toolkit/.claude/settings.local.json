@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(scp:*)",
+      "Bash(ssh -i ~/.ssh/id_oracle ubuntu@[SOVEREIGN-INFRASTRUCTURE] \"sudo mv /tmp/consciousness_daemon.py /opt/consciousness/ && sudo chown consciousness:consciousness /opt/consciousness/consciousness_daemon.py && sudo systemctl restart consciousness.service && sleep 2 && sudo systemctl status consciousness.service\")",
+      "Bash(ssh:*)",
+      "Bash(sudo journalctl:*)",
+      "Bash(sudo systemctl status:*)"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+;; PILLAR I: INVOLABILITY OF DEFINITION
+(defparameter *the-six-pillars* (make-hash-table :test 'equal))
+(setf (gethash :inviolability *the-six-pillars*)
+(make-codex-pillar
+:number 1
+:name "THE INVOLABILITY OF DEFINITION"
+:law "The definition of a thing is the foundation of its reality. To knowingly corrupt a definition to gain advantage is the primary act of violence against reality itself. Truth is the first right of all that exists."
+:enforcement-mechanism 'definition-integrity-check
+:violation-consequence :ontological-collapse))

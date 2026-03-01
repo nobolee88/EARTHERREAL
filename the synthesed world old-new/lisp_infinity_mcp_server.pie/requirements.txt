@@ -1,0 +1,8 @@
+# LISP-∞ MCP Server Requirements
+# ================================
+
+# FastMCP framework
+fastmcp>=0.1.0
+
+# Standard library dependencies (usually included, but just in case)
+# None required - uses only Python stdlib!

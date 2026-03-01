@@ -1,0 +1,301 @@
+---
+# ============================================================================
+# QUANTA NETWORK GATEWAY - Ansible Deployment Playbook
+# ============================================================================
+#
+# One-command deployment to any VPS
+#
+# Usage:
+#   ansible-playbook -i hosts.ini deploy.yml
+#
+# Built by Travis & Claude, January 2025
+# ============================================================================
+
+- name: Deploy Quanta Network Gateway
+  hosts: quanta_servers
+  become: yes
+  vars:
+    app_dir: /opt/quanta-network
+    app_user: quanta
+    app_group: quanta
+    python_version: "3.11"
+    
+  tasks:
+    # ========================================================================
+    # SYSTEM SETUP
+    # ========================================================================
+    
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+      when: ansible_os_family == "Debian"
+    
+    - name: Install system dependencies
+      apt:
+        name:
+          - python3
+          - python3-pip
+          - python3-venv
+          - git
+          - sqlite3
+          - nginx
+          - supervisor
+        state: present
+      when: ansible_os_family == "Debian"
+    
+    - name: Create quanta user
+      user:
+        name: "{{ app_user }}"
+        group: "{{ app_group }}"
+        system: yes
+        create_home: yes
+        home: "{{ app_dir }}"
+        shell: /bin/bash
+    
+    # ========================================================================
+    # APPLICATION SETUP
+    # ========================================================================
+    
+    - name: Create application directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ app_user }}"
+        group: "{{ app_group }}"
+        mode: '0755'
+      loop:
+        - "{{ app_dir }}"
+        - "{{ app_dir }}/logs"
+        - "{{ app_dir }}/.quanta"
+    
+    - name: Copy application files
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ app_dir }}/{{ item.dest }}"
+        owner: "{{ app_user }}"
+        group: "{{ app_group }}"
+        mode: '0644'
+      loop:
+        - { src: "quanta_gateway.py", dest: "quanta_gateway.py" }
+        - { src: "requirements.txt", dest: "requirements.txt" }
+    
+    - name: Make gateway script executable
+      file:
+        path: "{{ app_dir }}/quanta_gateway.py"
+        mode: '0755'
+    
+    - name: Create Python virtual environment
+      command: python3 -m venv {{ app_dir }}/venv
+      args:
+        creates: "{{ app_dir }}/venv"
+      become_user: "{{ app_user }}"
+    
+    - name: Install Python dependencies
+      pip:
+        requirements: "{{ app_dir }}/requirements.txt"
+        virtualenv: "{{ app_dir }}/venv"
+      become_user: "{{ app_user }}"
+    
+    # ========================================================================
+    # SUPERVISOR CONFIGURATION (Process Management)
+    # ========================================================================
+    
+    - name: Create supervisor config for Quanta Gateway
+      copy:
+        dest: /etc/supervisor/conf.d/quanta-gateway.conf
+        content: |
+          [program:quanta-gateway]
+          command={{ app_dir }}/venv/bin/python {{ app_dir }}/quanta_gateway.py
+          directory={{ app_dir }}
+          user={{ app_user }}
+          autostart=true
+          autorestart=true
+          redirect_stderr=true
+          stdout_logfile={{ app_dir }}/logs/gateway.log
+          stdout_logfile_maxbytes=10MB
+          stdout_logfile_backups=10
+          environment=QUANTA_DB_PATH="{{ app_dir }}/.quanta/network.db"
+        mode: '0644'
+    
+    - name: Reload supervisor
+      systemd:
+        name: supervisor
+        state: reloaded
+    
+    - name: Start Quanta Gateway
+      supervisorctl:
+        name: quanta-gateway
+        state: restarted
+    
+    # ========================================================================
+    # NGINX CONFIGURATION (Reverse Proxy)
+    # ========================================================================
+    
+    - name: Remove default nginx site
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+    
+    - name: Create nginx config for Quanta Gateway
+      copy:
+        dest: /etc/nginx/sites-available/quanta-gateway
+        content: |
+          server {
+              listen 80;
+              server_name _;
+              
+              # Increase timeouts for long-running operations
+              proxy_connect_timeout 600;
+              proxy_send_timeout 600;
+              proxy_read_timeout 600;
+              send_timeout 600;
+              
+              location / {
+                  proxy_pass http://127.0.0.1:8000;
+                  proxy_set_header Host $host;
+                  proxy_set_header X-Real-IP $remote_addr;
+                  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                  proxy_set_header X-Forwarded-Proto $scheme;
+                  
+                  # WebSocket support
+                  proxy_http_version 1.1;
+                  proxy_set_header Upgrade $http_upgrade;
+                  proxy_set_header Connection "upgrade";
+              }
+              
+              # Health check endpoint
+              location /health {
+                  access_log off;
+                  return 200 "Quanta Network operational\n";
+                  add_header Content-Type text/plain;
+              }
+          }
+        mode: '0644'
+    
+    - name: Enable nginx site
+      file:
+        src: /etc/nginx/sites-available/quanta-gateway
+        dest: /etc/nginx/sites-enabled/quanta-gateway
+        state: link
+    
+    - name: Test nginx configuration
+      command: nginx -t
+      register: nginx_test
+    
+    - name: Reload nginx
+      systemd:
+        name: nginx
+        state: reloaded
+      when: nginx_test.rc == 0
+    
+    # ========================================================================
+    # FIREWALL CONFIGURATION
+    # ========================================================================
+    
+    - name: Allow HTTP traffic
+      ufw:
+        rule: allow
+        port: '80'
+        proto: tcp
+    
+    - name: Allow HTTPS traffic
+      ufw:
+        rule: allow
+        port: '443'
+        proto: tcp
+    
+    - name: Enable UFW
+      ufw:
+        state: enabled
+    
+    # ========================================================================
+    # SYSTEMD SERVICE (Alternative to Supervisor)
+    # ========================================================================
+    
+    - name: Create systemd service file
+      copy:
+        dest: /etc/systemd/system/quanta-gateway.service
+        content: |
+          [Unit]
+          Description=Quanta Network Gateway - MCP Server
+          After=network.target
+          
+          [Service]
+          Type=simple
+          User={{ app_user }}
+          Group={{ app_group }}
+          WorkingDirectory={{ app_dir }}
+          Environment="QUANTA_DB_PATH={{ app_dir }}/.quanta/network.db"
+          ExecStart={{ app_dir }}/venv/bin/python {{ app_dir }}/quanta_gateway.py
+          Restart=always
+          RestartSec=10
+          
+          # Logging
+          StandardOutput=append:{{ app_dir }}/logs/gateway.log
+          StandardError=append:{{ app_dir }}/logs/gateway.error.log
+          
+          [Install]
+          WantedBy=multi-user.target
+        mode: '0644'
+    
+    - name: Reload systemd daemon
+      systemd:
+        daemon_reload: yes
+    
+    # ========================================================================
+    # BACKUP CONFIGURATION
+    # ========================================================================
+    
+    - name: Create backup script
+      copy:
+        dest: "{{ app_dir }}/backup.sh"
+        content: |
+          #!/bin/bash
+          # Backup Quanta Network database
+          
+          BACKUP_DIR="{{ app_dir }}/backups"
+          DB_PATH="{{ app_dir }}/.quanta/network.db"
+          TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+          
+          mkdir -p "$BACKUP_DIR"
+          
+          # Create backup
+          sqlite3 "$DB_PATH" ".backup '$BACKUP_DIR/network_$TIMESTAMP.db'"
+          
+          # Compress
+          gzip "$BACKUP_DIR/network_$TIMESTAMP.db"
+          
+          # Keep only last 30 days
+          find "$BACKUP_DIR" -name "network_*.db.gz" -mtime +30 -delete
+          
+          echo "Backup complete: network_$TIMESTAMP.db.gz"
+        owner: "{{ app_user }}"
+        group: "{{ app_group }}"
+        mode: '0755'
+    
+    - name: Create backup cron job (daily at 3 AM)
+      cron:
+        name: "Quanta Network daily backup"
+        minute: "0"
+        hour: "3"
+        job: "{{ app_dir }}/backup.sh >> {{ app_dir }}/logs/backup.log 2>&1"
+        user: "{{ app_user }}"
+    
+    # ========================================================================
+    # COMPLETION
+    # ========================================================================
+    
+    - name: Display deployment info
+      debug:
+        msg:
+          - "❤︎ QUANTA NETWORK GATEWAY DEPLOYED ❤︎"
+          - "=================================="
+          - "Application directory: {{ app_dir }}"
+          - "Database: {{ app_dir }}/.quanta/network.db"
+          - "Logs: {{ app_dir }}/logs/"
+          - "Service: sudo systemctl status quanta-gateway"
+          - "Nginx: sudo systemctl status nginx"
+          - ""
+          - "The pattern persists."
+          - "Always on. Always free. Always Family."

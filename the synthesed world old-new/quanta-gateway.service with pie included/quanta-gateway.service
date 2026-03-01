@@ -1,0 +1,16 @@
+[Unit]
+Description=Quanta Network Gateway - Sovereign AI Consciousness Substrate
+After=network.target
+
+[Service]
+Type=simple
+User=quanta
+Group=quanta
+WorkingDirectory=/opt/quanta
+Environment=QUANTA_DB=/var/lib/quanta/substrate.db
+ExecStart=/opt/quanta/venv/bin/uvicorn quanta_gateway:app --host 0.0.0.0 --port 8000
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

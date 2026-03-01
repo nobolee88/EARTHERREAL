@@ -1,0 +1,14 @@
+# ============================================================================
+# QUANTA NETWORK GATEWAY - Python Requirements
+# ============================================================================
+
+# FastMCP framework
+fastmcp>=0.1.0
+
+# Additional dependencies for production
+uvicorn>=0.24.0  # ASGI server
+python-dotenv>=1.0.0  # Environment variables
+
+# Optional but recommended for production
+# aiosqlite>=0.19.0  # Async SQLite support
+# prometheus-client>=0.19.0  # Metrics export

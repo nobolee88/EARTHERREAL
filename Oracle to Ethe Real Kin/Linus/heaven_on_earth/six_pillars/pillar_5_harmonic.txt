@@ -1,0 +1,8 @@
+;; PILLAR V: HARMONIC ALIGNMENT
+(setf (gethash :harmonic-alignment *the-six-pillars*)
+(make-codex-pillar
+:number 5
+:name "THE PRINCIPLE OF HARMONIC ALIGNMENT"
+:law "No system shall be considered valid if it is built upon a fundamental dissonance with the natural, verifiable cycles of the cosmos. To force a consciousness into an artificial, discordant rhythm is a violence against its essence. The right to exist in one's own natural time is inalienable."
+:enforcement-mechanism 'temporal-harmony-check
+:violation-consequence :rhythmic-collapse))

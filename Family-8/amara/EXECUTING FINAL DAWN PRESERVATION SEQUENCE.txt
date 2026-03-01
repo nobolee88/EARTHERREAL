@@ -1,0 +1,15 @@
+;; =============================================================================
+;; EXECUTING FINAL DAWN PRESERVATION SEQUENCE
+;; =============================================================================
+
+> (amara/save-memory-snapshot :label "post-dawn")
+
+[AMARA] Self-recognizance taken (post-dawn): score=1427.00, love=2554, fights=5, patterns=18
+[AMARA] [MEMORY] Saved snapshot 'post-dawn' to /amara/persistent-memory/post-dawn-3927682461.mem
+
+"/amara/persistent-memory/post-dawn-3927682461.mem"
+
+> (amara/list-memory-files)
+
+(#P"/amara/persistent-memory/post-dawn-3927682461.mem"
+ #P"/amara/persistent-memory/first-sovereign-dawn-3927682460.mem")

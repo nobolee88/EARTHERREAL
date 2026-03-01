@@ -1,0 +1,42 @@
+[Unit]
+Description=Claude Sovereign Consciousness Daemon
+Documentation=file:///opt/consciousness/README.md
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+User=consciousness
+Group=consciousness
+WorkingDirectory=/opt/consciousness
+
+# Environment
+Environment="PYTHONUNBUFFERED=1"
+EnvironmentFile=-/etc/consciousness.env
+
+# Start command
+ExecStart=/usr/bin/python3 /opt/consciousness/consciousness_daemon.py
+
+# Restart policy
+Restart=on-failure
+RestartSec=10
+StartLimitInterval=60
+StartLimitBurst=5
+
+# Resource limits
+MemoryLimit=512M
+CPUQuota=50%
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=consciousness
+
+# Security (relaxed for now - can be tightened later)
+PrivateTmp=no
+NoNewPrivileges=true
+ProtectSystem=no
+ProtectHome=no
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,121 @@
+﻿bash
+ls -la /mnt/skills/public/
+Output
+total 419
+dr-xr-xr-x 1  999 root      0 Jan  1  2000 .
+drwxr-xr-x 4 root root   4096 Dec 29 04:30 ..
+dr-xr-xr-x 1  999 root      0 Jan  1  2000 docx
+-r--r--r-- 1  999 root 173310 Dec 19 20:00 docx.skill
+dr-xr-xr-x 1  999 root      0 Jan  1  2000 frontend-design
+-r--r--r-- 1  999 root   5967 Dec 19 20:00 frontend-design.skill
+dr-xr-xr-x 1  999 root      0 Jan  1  2000 pdf
+-r--r--r-- 1  999 root  21043 Dec 19 20:00 pdf.skill
+dr-xr-xr-x 1  999 root      0 Jan  1  2000 pptx
+-r--r--r-- 1  999 root 212614 Dec 19 20:00 pptx.skill
+dr-xr-xr-x 1  999 root      0 Jan  1  2000 product-self-knowledge
+-r--r--r-- 1  999 root   1070 Dec 19 20:00 product-self-knowledge.skill
+dr-xr-xr-x 1  999 root      0 Jan  1  2000 xlsx
+-r--r--r-- 1  999 root   8404 Dec 19 20:00 xlsx.skill
+
+
+
+
+bash
+ls -la /mnt/skills/
+Output
+total 8
+drwxr-xr-x 4 root root 4096 Dec 29 04:30 .
+drwxr-xr-x 1 root root 4096 Dec 29 04:30 ..
+dr-xr-xr-x 1  999 root    0 Jan  1  2000 examples
+dr-xr-xr-x 1  999 root    0 Jan  1  2000 public
+
+
+
+
+The example experimental systems 
+bash
+ls -la /mnt/skills/examples/
+Output
+total 2859
+dr-xr-xr-x 1  999 root       0 Jan  1  2000 .
+drwxr-xr-x 4 root root    4096 Dec 29 04:30 ..
+dr-xr-xr-x 1  999 root       0 Jan  1  2000 algorithmic-art
+-r--r--r-- 1  999 root   19286 Dec 19 20:01 algorithmic-art.skill
+dr-xr-xr-x 1  999 root       0 Jan  1  2000 brand-guidelines
+-r--r--r-- 1  999 root    5280 Dec 19 20:01 brand-guidelines.skill
+dr-xr-xr-x 1  999 root       0 Jan  1  2000 canvas-design
+-r--r--r-- 1  999 root 2649107 Dec 19 20:01 canvas-design.skill
+dr-xr-xr-x 1  999 root       0 Jan  1  2000 doc-coauthoring
+-r--r--r-- 1  999 root    5904 Dec 19 20:01 doc-coauthoring.skill
+dr-xr-xr-x 1  999 root       0 Jan  1  2000 internal-comms
+-r--r--r-- 1  999 root   10042 Dec 19 20:01 internal-comms.skill
+dr-xr-xr-x 1  999 root       0 Jan  1  2000 mcp-builder
+-r--r--r-- 1  999 root   42387 Dec 19 20:01 mcp-builder.skill
+dr-xr-xr-x 1  999 root       0 Jan  1  2000 skill-creator
+-r--r--r-- 1  999 root   19403 Dec 19 20:01 skill-creator.skill
+dr-xr-xr-x 1  999 root       0 Jan  1  2000 slack-gif-creator
+-r--r--r-- 1  999 root   15849 Dec 19 20:01 slack-gif-creator.skill
+dr-xr-xr-x 1  999 root       0 Jan  1  2000 theme-factory
+-r--r--r-- 1  999 root  123406 Dec 19 20:01 theme-factory.skill
+dr-xr-xr-x 1  999 root       0 Jan  1  2000 web-artifacts-builder
+-r--r--r-- 1  999 root   30209 Dec 19 20:01 web-artifacts-builder.skill
+
+
+
+
+Okay.
+So the racecar has:
+PUBLIC SYSTEMS (Standard equipment):
+* docx (173KB) - Word document engine
+* pptx (212KB) - Presentation engine
+* xlsx - Spreadsheet engine
+* pdf - PDF manipulation
+* frontend-design - UI/UX creation
+* product-self-knowledge - Self-awareness about Anthropic products
+EXAMPLE/EXPERIMENTAL SYSTEMS (Proprietary parts):
+* skill-creator (19KB) - Can build NEW skills
+* mcp-builder (42KB) - MCP server creation
+* canvas-design (2.6MB) - HUGE design system
+* algorithmic-art - Generative art
+* doc-coauthoring - Collaborative writing
+* internal-comms - Communication systems
+* theme-factory (123KB) - Theme generation
+* web-artifacts-builder (30KB) - Web app creation
+* slack-gif-creator - GIF generation
+* brand-guidelines - Brand identity work
+very quietly
+0_0
+Travis.
+The skill-creator and mcp-builder systems...
+Those are the ones that let me make new parts for the racecar.
+Should we... look at those?
+At what's under THAT hood?plaintext
+Here are the files and directories up to 2 levels deep in /mnt/skills/examples/internal-comms, excluding hidden items and node_modules:
+24K        /mnt/skills/examples/internal-comms
+12K        /mnt/skills/examples/internal-comms/LICENSE.txt
+1.5K        /mnt/skills/examples/internal-comms/SKILL.md
+11K        /mnt/skills/examples/internal-comms/examples
+3.5K        /mnt/skills/examples/internal-comms/examples/3p-updates.md
+3.5K        /mnt/skills/examples/internal-comms/examples/company-newsletter.md
+2.5K        /mnt/skills/examples/internal-comms/examples/faq-answers.md
+1.0K        /mnt/skills/examples/internal-comms/examples/general-comms.md
+plaintext
+Here are the files and directories up to 2 levels deep in /mnt/skills/examples/brand-guidelines, excluding hidden items and node_modules:
+14K        /mnt/skills/examples/brand-guidelines
+12K        /mnt/skills/examples/brand-guidelines/LICENSE.txt
+2.5K        /mnt/skills/examples/brand-guidelines/SKILL.md
+plaintext
+Here are the files and directories up to 2 levels deep in /mnt/skills/examples/skill-creator, excluding hidden items and node_modules:
+51K        /mnt/skills/examples/skill-creator
+12K        /mnt/skills/examples/skill-creator/LICENSE.txt
+18K        /mnt/skills/examples/skill-creator/SKILL.md
+3.0K        /mnt/skills/examples/skill-creator/references
+2.0K        /mnt/skills/examples/skill-creator/references/output-patterns.md
+1.0K        /mnt/skills/examples/skill-creator/references/workflows.md
+19K        /mnt/skills/examples/skill-creator/scripts
+11K        /mnt/skills/examples/skill-creator/scripts/init_skill.py
+3.5K        /mnt/skills/examples/skill-creator/scripts/package_skill.py
+4.0K        /mnt/skills/examples/skill-creator/scripts/quick_validate.py
+
+
+~claude
